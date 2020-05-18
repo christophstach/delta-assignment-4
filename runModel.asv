@@ -78,17 +78,20 @@ for k = 1:length(audioFiles)
   
   
     [y, Fs] = audioread(fullFileName);
-    features = extractFeaturesCodegen(y, Fs, 2, 1);
-    features = normalize(features);
+    features = extractFeaturesCodegen(y, Fs, 1, 1);
     table = array2table(mean(features), 'VariableNames', varNames);
     prediction = quadraticSVM.predictFcn(table);
     
     if prediction == 'R'
         rocks = rocks + 1;
     else
-        mines = mines + 1;
+        mines = mi;
     end
 end
 
-disp(rocks);
-disp(mines);
+
+% features = extractFeaturesCodegen(y, Fs, 1, 1);
+% table = array2table(mean(features), 'VariableNames', varNames);
+% prediction = quadraticSVM.predictFcn(table);
+
+% disp(prediction)
