@@ -27,5 +27,5 @@ for k = 1:length(audioFiles)
     end
 end
 
-disp(rocks);
-disp(mines);
+disp('Rocks: ' + string(rocks));
+disp('Mines: ' + string(mines));
