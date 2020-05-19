@@ -78,9 +78,11 @@ for k = 1:length(audioFiles)
   
   
     [y, Fs] = audioread(fullFileName);
-    features = extractFeaturesCodegen(y, Fs, 2, 1);
-    features = normalize(features);
-    table = array2table(mean(features), 'VariableNames', varNames);
+    features = extractFeaturesCodegen(y, Fs, 2, 0);
+    features_normalized = mean(normalize(features));
+    
+
+    table = array2table(features_normalized, 'VariableNames', varNames);
     prediction = quadraticSVM.predictFcn(table);
     
     if prediction == 'R'
