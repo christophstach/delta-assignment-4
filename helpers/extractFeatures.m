@@ -84,11 +84,11 @@ while hasdata(fds)
         HF = 500;               % upper frequency limit (Hz)
 
         [MFCCs, ~, ~] = mfcc(current_signal, fs, Tw, Ts, alpha, @hamming, [LF HF], M, C+1, L);
-        feature_table.MFCC1(iwin, 1) = MFCCs(1);
-        feature_table.MFCC2(iwin, 1) = MFCCs(2);
-        feature_table.MFCC3(iwin, 1) = MFCCs(3);
-        feature_table.MFCC4(iwin, 1) = MFCCs(4);
-        feature_table.MFCC5(iwin, 1) = MFCCs(5);
+        feature_table.MFCC1(iwin, 1) = mean(MFCCs(1));
+        feature_table.MFCC2(iwin, 1) = mean(MFCCs(2));
+        feature_table.MFCC3(iwin, 1) = mean(MFCCs(3));
+        feature_table.MFCC4(iwin, 1) = mean(MFCCs(4));
+        feature_table.MFCC5(iwin, 1) = mean(MFCCs(5));
         feature_table.MFCC6(iwin, 1) = MFCCs(6);
         feature_table.MFCC7(iwin, 1) = MFCCs(7);
         feature_table.MFCC8(iwin, 1) = MFCCs(8);

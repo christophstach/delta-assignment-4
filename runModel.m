@@ -2,16 +2,11 @@ addpath('helpers');
 load('models/quadraticSVM.mat');
 load('models/varNames.mat');
 
-rocks = 0;
-mines = 0;
-
-confusion_matrix = [
-    0 0;
-    0 0
-];
+clear features
+clear features_normalized
 
 targets = [];
-ouputs = [];    
+outputs = [];    
 
 audioDir = 'audio';
 audioFiles = dir(fullfile(audioDir, '*.m4a'));
@@ -28,35 +23,17 @@ for k = 1:length(audioFiles)
     predicted_label = quadraticSVM.predictFcn(table);
     
     if contains(fullFileName, 'metal')
-        real_label = 'M';
+        targets = [targets 0];
     else
-        real_label = 'R';
+        targets = [targets 1];
     end
     
-    if isequal(real_label, 'M') && isequal(predicted_label, 'M')
-        confusion_matrix(1, 1) = confusion_matrix(1, 1) + 1;
-    end
-    
-    if isequal(real_label, 'M') && isequal(predicted_label, 'R')
-        confusion_matrix(1, 2) = confusion_matrix(1, 2) + 1;
-    end
-    
-    if isequal(real_label, 'R') && isequal(predicted_label, 'M')
-        confusion_matrix(2, 1) = confusion_matrix(2, 1) + 1;
-    end
-    
-    if isequal(real_label, 'R') && isequal(predicted_label, 'R')
-        confusion_matrix(2, 2) = confusion_matrix(2, 2) + 1;
-    end
-    
-    if predicted_label == 'R'
-        rocks = rocks + 1;
-    else
-        mines = mines + 1;
+    if predicted_label == 'M'
+        outputs = [outputs 0];
+    else    
+        outputs = [outputs 1];
     end
 end
 
-disp(confusion_matrix);
-plotconfusion(tragets, outputs)
-disp('Rocks: ' + string(rocks));
-disp('Mines: ' + string(mines));
+
+plotconfusion(targets, outputs);

@@ -18,11 +18,11 @@ for iwin = 1:number_of_windows
     current_signal = signal(current_start_sample:current_end_sample);
     
     % Calculate kurtosis of the signal values
-    features(iwin, 1) = kurtosis(current_signal);
+    features(iwin, 1) = mean(kurtosis(current_signal));
        
     % Extract features from the power spectrum
     [~, maxval, ~] = dominant_frequency_features(current_signal, fs, 256, 0);
-    features(iwin, 2) = maxval;
+    features(iwin, 2) = mean(maxval);
     
     % Extract MFCC features
     Tw = window_length*1000;% analysis frame duration (ms)
@@ -37,7 +37,7 @@ for iwin = 1:number_of_windows
     [MFCCs, ~, ~] = mfcc(current_signal, fs, Tw, Ts, alpha, @hamming, [LF HF], M, C+1, L);
 
     for i = 3:number_of_features
-        features(iwin, i) = MFCCs(i - 2);
+        features(iwin, i) = mean(MFCCs(i - 2));
     end        
 end
 end
